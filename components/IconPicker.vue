@@ -31,13 +31,13 @@ export default {
       value: ""
     };
   },
-  props:{
-      filterable:{
-          type:Boolean,
-          default:false
-      }
+  props: {
+    filterable: {
+      type: Boolean,
+      default: false
+    }
   },
-  render(h,context) {
+  render(h, context) {
     let showCurrent = this.value ? (
       <svg-icon icon-class={this.value} class="icon icon-current"></svg-icon>
     ) : (
@@ -46,7 +46,7 @@ export default {
     let options = this.icons.map((item, index) => {
       return (
         <el-option
-          style="height:auto;line-height:auto;float:left;padding:20px;margin:10px 0"
+          style="height:auto;line-height:auto;padding:20px;margin:10px 0;"
           value={item}
           key={index}
         >
@@ -57,14 +57,15 @@ export default {
         </el-option>
       );
     });
-    return  (
+    return (
       <div class="icon-select-wrapper ">
         {showCurrent}
         <el-select
           className="icon-select"
+          popper-append-to-body
           clearable
           filterable
-          onClear= { () => this.handleClear()}
+          onClear={() => this.handleClear()}
           popper-class="custom-popper"
           value={this.value}
           onChange={e => {
@@ -78,9 +79,9 @@ export default {
       </div>
     );
   },
-  methods:{
-    handleClear(){
-        console.log('clea..........r')
+  methods: {
+    handleClear() {
+      console.log("clea..........r");
     }
   },
   created() {
@@ -91,8 +92,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ input.el-input__inner{
-    padding-right:60px !important; 
+::v-deep input.el-input__inner {
+  padding-right: 60px !important;
 }
 .icon-select-wrapper {
   display: inline-block;
@@ -104,18 +105,13 @@ export default {
     z-index: 888;
   }
 }
-/deep/ .el-select-dropdown__wrap.el-scrollbar__wrap {
+::v-deep .el-select-dropdown__wrap .el-scrollbar__wrap {
   width: 700px;
 }
 .icon {
   width: 24px;
   height: 24px;
 }
-/deep/ .el-select-dropdown.el-popper custom-popper.custom-popper {
-  max-width: 700px !important;
-  left: 160px !important;
-}
-
 .text {
   width: 80px;
   overflow: hidden;

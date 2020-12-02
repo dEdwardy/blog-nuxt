@@ -12,16 +12,17 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'reset.css',
+    '@/assets/styles/base.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/svg-icon' //注册 svg-icons插件文件 
+    '@/plugins/svg-icon', //注册 svg-icons插件文件 
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -37,6 +38,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content

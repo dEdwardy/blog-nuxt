@@ -29,6 +29,7 @@
 <script>
 import iconPicker from '@/components/IconPicker'
 export default {
+  layout:'common',
   data() {
     return {
       icons: [],
@@ -48,30 +49,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-// /deep/ .el-select-dropdown__wrap.el-scrollbar__wrap {
-//   width: 700px;
-// }
-// .icon {
-//   width: 24px;
-//   height: 24px;
-// }
-// /deep/ .el-select-dropdown.el-popper custom-popper.custom-popper {
-//   max-width: 700px !important;
-//   left: 160px !important;
-// }
-// .icon-select-wrapper{
-//   position:relative;
-//   .icon-current{
-//     position:absolute;
-//     top:8px;
-//     right:30px;
-//     z-index:888;
-//   }
-// }
-// .text{
-//   width:80px;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// }
+<style>
+ 
 </style>
