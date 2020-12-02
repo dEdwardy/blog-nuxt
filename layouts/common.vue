@@ -155,9 +155,12 @@ $asideBgColor: #fff;
   max-width:400px;
   & ul {
     display: flex !important;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap !important;
+    li{
+      width:33.3%;
+    }
   }
 }
 </style>

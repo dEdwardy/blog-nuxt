@@ -23,6 +23,8 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/svg-icon', //注册 svg-icons插件文件 
+    '@/plugins/axios',
+    '@/plugins/axios-api'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -46,25 +48,26 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: 'http://rap2api.taobao.org/app/mock/272279'
+  },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
-
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [/^element-ui/],
-    extend(config, context){
+    extend(config, context) {
       // 排除 nuxt 原配置的影响,Nuxt 默认有vue-loader,会处理svg,img等
       // 找到匹配.svg的规则,然后将存放svg文件的目录排除
-      const svgRule =   config.module.rules.find( rule => rule.test.test('.svg'));
-      svgRule.exclude = [ resolve(__dirname,'assets/icons/svg')];
+      const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));
+      svgRule.exclude = [resolve(__dirname, 'assets/icons/svg')];
 
       config.module.rules.push({
-        test:/\.svg$/,
+        test: /\.svg$/,
         //将存放svg的目录加入到loader处理目录
-        include:[resolve(__dirname,'assets/icons/svg')],
-        use: [{ loader: 'svg-sprite-loader',options: {symbolId: 'icon-[name]'}}]
+        include: [resolve(__dirname, 'assets/icons/svg')],
+        use: [{ loader: 'svg-sprite-loader', options: { symbolId: 'icon-[name]' } }]
       })
     }
   }

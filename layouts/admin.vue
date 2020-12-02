@@ -1,17 +1,21 @@
 <template>
   <div class="container">
     <aside class="aside">
-      <div
-        style="display:flex;justify-content:center;align-items:center;cursor:pointer"
-      >
+      <div style="text-align: center">
         <svg-icon
-          icon-class="add"
-          style="width:20px;height:20px;color:red;padding: 10px"
+          icon-class="logo-b"
+          v-show="!isCollapse"
+          style="width: 120px; height: 40px; padding: 10px"
+        ></svg-icon>
+        <svg-icon
+          icon-class="logo-b"
+          v-show="isCollapse"
+          style="width: 40px; height: 40px; padding: 10px"
         ></svg-icon>
       </div>
       <div
         @click="isCollapse = !isCollapse"
-        style="width:20px;height:20px;cursor:pointer"
+        style="width: 20px; height: 20px; cursor: pointer"
       >
         change
       </div>
@@ -22,6 +26,9 @@
         :collapse="isCollapse"
         scollapse-transition
         unique-opened
+        background-color="#263445"
+        text-color="#fff"
+        active-text-color="rgb(24,144,255)"
       >
         <el-submenu
           v-for="item of mockRoutes"
@@ -31,7 +38,7 @@
           <template slot="title">
             <svg-icon
               :icon-class="item.meta.icon"
-              style="position:relative;top:2px;"
+              style="position: relative; top: 2px"
             ></svg-icon>
             <span v-show="!isCollapse">{{ item.meta.title }}</span>
           </template>
@@ -43,8 +50,8 @@
             <el-menu-item :index="'admin/' + item.path + '/' + i.path">
               <template slot="title">
                 <svg-icon
-                  :icon-class="item.meta.icon"
-                  style="position:relative;top:2px;"
+                  :icon-class="i.meta.icon"
+                  style="position: relative; top: 2px"
                 ></svg-icon>
                 {{ i.meta.title }}
               </template>
@@ -69,7 +76,7 @@ export default {
       mockRoutes: [
         {
           meta: {
-            icon: "add",
+            icon: "system",
             title: "系统管理"
           },
           name: "system",
@@ -77,7 +84,7 @@ export default {
           children: [
             {
               meta: {
-                icon: "add",
+                icon: "user",
                 title: "用户管理"
               },
               name: "user",
@@ -85,7 +92,7 @@ export default {
             },
             {
               meta: {
-                icon: "add",
+                icon: "users",
                 title: "角色管理"
               },
               name: "role",
@@ -93,7 +100,7 @@ export default {
             },
             {
               meta: {
-                icon: "add",
+                icon: "menu",
                 title: "菜单管理"
               },
               name: "menu",
@@ -119,7 +126,7 @@ export default {
 <style lang="scss" scoped>
 $headerHeight: 48px;
 $headerBgColor: rgba(0, 0, 0, 0.4);
-$asideWidth: 64px;
+$asideWidth: 200px;
 $asideBgColor: #fff;
 .container {
   display: flex;
@@ -128,13 +135,16 @@ $asideBgColor: #fff;
   overflow: hidden;
   .aside {
     border-right: 1px solid #eee;
-    min-width: $asideWidth;
-    overflow: hidden;
+    background-color: #263445;
+    color: #fff;
+    max-width: $asideWidth;
     & .max {
       width: 200px;
+      min-width: 200px;
     }
     & .min {
       width: 60px;
+      min-width: 60px;
     }
   }
   .right {
@@ -143,8 +153,8 @@ $asideBgColor: #fff;
       height: $headerHeight;
     }
     .main {
-      padding: 10px;
-      height: calc(100% - #{$headerHeight+20px});
+      padding: 20px;
+      height: calc(100% - #{$headerHeight+40px});
     }
   }
 }
@@ -167,7 +177,13 @@ $asideBgColor: #fff;
 <style lang="scss">
 .custom-popper {
   max-width: 400px;
-  & ul {
+  ul {
+    li {
+      color: #fff;
+      &:hover {
+        background-color: rgb(48, 65, 86);
+      }
+    }
     display: flex !important;
     justify-content: space-around;
     align-items: center;
@@ -177,7 +193,7 @@ $asideBgColor: #fff;
 a {
   text-decoration: none;
 }
- 
+
 .router-link-active {
   text-decoration: none;
 }
