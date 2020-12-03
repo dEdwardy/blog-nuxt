@@ -31,7 +31,7 @@
         active-text-color="rgb(24,144,255)"
       >
         <el-submenu
-          v-for="item of mockRoutes"
+          v-for="item of routes"
           :key="item.path"
           :index="'admin/' + item.path"
         >
@@ -69,6 +69,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -112,6 +113,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["routes"]),
     toggleClass() {
       if (this.isCollapse) {
         return "min";
@@ -134,7 +136,6 @@ $asideBgColor: #fff;
   height: 100vh;
   overflow: hidden;
   .aside {
-    border-right: 1px solid #eee;
     background-color: #263445;
     color: #fff;
     max-width: $asideWidth;
@@ -178,10 +179,11 @@ $asideBgColor: #fff;
 .custom-popper {
   max-width: 400px;
   ul {
+    // background-color:#aaa;
     li {
-      color: #fff;
+      // color: #fff;
       &:hover {
-        background-color: rgb(48, 65, 86);
+        // background-color: rgb(48, 65, 86);
       }
     }
     display: flex !important;

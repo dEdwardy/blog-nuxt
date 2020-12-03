@@ -23,8 +23,8 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/svg-icon', //注册 svg-icons插件文件 
-    '@/plugins/axios',
-    '@/plugins/axios-api'
+    // '@/plugins/axios',
+    // '@/plugins/axios-api'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -35,7 +35,11 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
   ],
-
+  //进度条样式修改
+  loading:{
+    color:'#1890ff',
+    height:'2px'
+  },  
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios

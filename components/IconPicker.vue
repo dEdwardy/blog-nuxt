@@ -28,13 +28,25 @@ export default {
   data() {
     return {
       icons: [],
-      value: ""
     };
   },
   props: {
     filterable: {
       type: Boolean,
       default: false
+    },
+    value:{
+      type: String
+    }
+  },
+  computed:{
+    value_:{
+      get(){
+        return this.value
+      },
+      set(val){
+        this.$emit('input',val)
+      }
     }
   },
   render(h, context) {
@@ -48,6 +60,7 @@ export default {
         <el-option
           style="height:auto;line-height:auto;padding:20px;margin:10px 0;"
           value={item}
+          {...{on :{'update:value':val => this.value = val}}}
           key={index}
         >
           <div title={item} style="text-align:center">
@@ -67,9 +80,10 @@ export default {
           filterable
           onClear={() => this.handleClear()}
           popper-class="custom-popper"
-          value={this.value}
+          style="width:100%"
+          value={this.value_}
           onChange={e => {
-            this.value = e;
+            this.$emit('input',e)
           }}
           {...this.props}
           // vModel={ this.value }   //vue-cli4支持了vModel语法糖
@@ -113,7 +127,6 @@ export default {
   height: 24px;
 }
 .text {
-  width: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

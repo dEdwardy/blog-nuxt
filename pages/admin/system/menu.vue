@@ -36,27 +36,162 @@
       <el-table-column prop="staus" label="状态"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-          icon="el-icon-edit"
+          <el-button
+            @click.stop="handleClick(scope.row, 'update')"
+            type="text"
+            size="small"
+            icon="el-icon-edit"
             >修改</el-button
           >
-          <el-button type="text" size="small" icon="el-icon-plus">新增</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete">删除</el-button>
+          <el-button
+            type="text"
+            size="small"
+            icon="el-icon-plus"
+            @click.stop="handleClick(scope.row, 'add')"
+            >新增</el-button
+          >
+          <el-button
+            type="text"
+            size="small"
+            icon="el-icon-delete"
+            @click.stop="handleClick(scope.row, 'delete')"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      append-to-body
+      width="60%"
+      :close-on-click-modal="false"
+      :before-close="handleClose"
+    >
+      <el-form :model="menuForm" ref="menuForm" label-width="100px">
+        <el-form-item label="上级菜单">
+          <treeselect v-model="menuForm.parent" :options="options" />
+        </el-form-item>
+        <el-form-item label="菜单类型">
+          <el-radio-group v-model="menuForm.type">
+            <el-radio :label="0">目录</el-radio>
+            <el-radio :label="1">菜单</el-radio>
+            <el-radio :label="2">按钮</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="菜单图标">
+          <icon-picker style="width:100%" v-model="menuForm.icon"></icon-picker>
+        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="菜单名称">
+              <el-input v-model="menuForm.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="菜单排序">
+              <el-input-number
+                style="width:100%"
+                v-model="menuForm.sort"
+                controls-position="right"
+                :min="0"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否外联">
+              <el-radio-group v-model="menuForm.link">
+                <el-radio :label="0">是</el-radio>
+                <el-radio :label="1">否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="路由地址">
+              <el-input v-model="menuForm.path"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="显示状态">
+              <el-select v-model="menuForm.show" style="width:100%">
+                <el-option label="正常" :value="true"></el-option>
+                <el-option label="停用" :value="false"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="菜单状态">
+              <el-select v-model="menuForm.status" style="width:100%">
+                <el-option label="正常" value="on"></el-option>
+                <el-option label="停用" value="off"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogCancel">取 消</el-button>
+          <el-button type="primary" @click="dialogSure">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import iconPicker from "@/components/IconPicker";
+import treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 export default {
   name: "admin-system-menu",
   layout: "admin",
+  components: {
+    treeselect,
+    iconPicker
+  },
   data() {
     return {
+      dialogVisible: false,
+      dialogTitle: "",
+      options: [
+        {
+          id: "a",
+          label: "a",
+          children: [
+            {
+              id: "aa",
+              label: "aa"
+            },
+            {
+              id: "ab",
+              label: "ab"
+            }
+          ]
+        },
+        {
+          id: "b",
+          label: "b"
+        },
+        {
+          id: "c",
+          label: "c"
+        }
+      ],
       form: {
         name: "",
         staus: ""
+      },
+      menuForm: {
+        parent: "", //上级菜单
+        type: "", //菜单类型
+        icon: "", //菜单图标
+        name: "", //菜单名称
+        sort: "", //菜单排序
+        status: "", //菜单状态 on off
+        show: "", //显示状态  T F
+        path: "", //菜单路由
+        link: "" //是否外联  Boolean
       },
       tableData: [
         {
@@ -116,12 +251,49 @@ export default {
         }
       });
     },
-    handleClick(row){
-        console.log(row)
+    handleClick(row, type) {
+      console.log(row, type);
+      this.resetDialogForm();
+      switch (type) {
+        case "update":
+          this.dialogTitle = "修改菜单";
+          this.dialogVisible = true;
+          break;
+        case "add":
+          this.dialogTitle = "添加菜单";
+          this.dialogVisible = true;
+          break;
+        default:
+          break;
+      }
+    },
+    handleClose() {
+      this.dialogVisible = false;
+    },
+    dialogSure() {
+      console.log(this.menuForm);
+      if (this.dialogTitle == "修改菜单") {
+        //修改菜单
+      } else {
+        //添加菜单
+      }
+      this.dialogVisible = false;
+      //后续加了验证  使用form 的 clearFields()方法
+      // Object.keys(this.menuForm).forEach( i => this.menuForm[i] = '')
+    },
+    dialogCancel() {
+      console.log(this.menuForm);
+      this.dialogVisible = false;
+    },
+    resetDialogForm() {
+      this.$nextTick(() => {
+        //后续加了验证  使用form 的 clearFields()方法
+        this.$refs.menuForm && this.$refs.menuForm.resetFields();
+        Object.keys(this.menuForm).forEach(i => (this.menuForm[i] = null));
+      });
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

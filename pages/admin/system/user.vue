@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import { getUsers, getDepartTree } from "@/api/system";
 export default {
   name: "admin-system-user",
   layout: "admin",
@@ -121,8 +122,8 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val);
-      if(!val){
-        this.getDepartTree()
+      if (!val) {
+        this.getDepartTree();
       }
     }
   },
@@ -132,18 +133,16 @@ export default {
   },
   methods: {
     getUsers() {
-      return this.$api
-        .users({
-          ...this.pageConfig,
-          ...this.form,
-          ...this.treeOptions
-        })
-        .then(data => {
-          this.tableData = data;
-        });
+      return getUsers({
+        ...this.pageConfig,
+        ...this.form,
+        ...this.treeOptions
+      }).then(data => {
+        this.tableData = data;
+      });
     },
     getDepartTree() {
-      return this.$api.departTree().then(({ depart }) => {
+      return getDepartTree().then(({ depart }) => {
         this.data = depart;
       });
     },

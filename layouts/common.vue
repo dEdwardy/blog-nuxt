@@ -113,7 +113,6 @@ $asideBgColor: #fff;
   height: 100vh;
   overflow: hidden;
   .aside {
-    border-right: 1px solid #eee;
     min-width: $asideWidth;
     overflow: hidden;
     & .max {

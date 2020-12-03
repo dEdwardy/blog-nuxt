@@ -1,5 +1,4 @@
 export default function({ $axios, store }) {
-  console.log(store)
   let loadingCount = 0;
   $axios.onRequest(config => {
     loadingCount++;
@@ -9,6 +8,7 @@ export default function({ $axios, store }) {
   });
 
   $axios.onResponse(response => {
+    console.log(store.state)
     if (--loadingCount < 1) {
       // store.commit("showloading", false);
     }
