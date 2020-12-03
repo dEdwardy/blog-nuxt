@@ -44,6 +44,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/dotenv'
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
@@ -53,7 +54,15 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://rap2api.taobao.org/app/mock/272279'
+    baseURL: 'http://rap2api.taobao.org/app/mock/272279',
+    proxy:{
+      '/api/': {
+        target: 'http://localhost:3001/',
+        pathRewrite: {
+          '^/api/': ''
+        }
+      }
+    }
   },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
