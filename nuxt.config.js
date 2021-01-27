@@ -21,11 +21,14 @@ export default {
     'reset.css',
     '@/assets/styles/base.scss',
   ],
-
+  router: {
+    middleware: 'i18n'
+  },
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/svg-icon', //注册 svg-icons插件文件 
+    '@/plugins/i18n.js',  //注册国际化语言包插件
     // '@/plugins/axios',
     // '@/plugins/axios-api'
   ],

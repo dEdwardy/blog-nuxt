@@ -7,7 +7,7 @@ import axios from "axios";
 // });
 const service = axios.create({
   // baseURL: "http://rap2api.taobao.org/app/mock/272279",
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:3000",
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 });

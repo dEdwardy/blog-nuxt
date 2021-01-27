@@ -13,11 +13,12 @@
           style="width: 40px; height: 40px; padding: 10px"
         ></svg-icon>
       </div>
-      <div
-        
-        style="height: 20px;display:flex;justify-content:flex-end;padding:0 20px"
-      >
-        <svg-icon @click.native="isCollapse = !isCollapse" icon-class="collapse" style="color:#fff; cursor: pointer;"/>
+      <div style="height: 20px;display:flex;justify-content:flex-end;padding:0 20px">
+        <svg-icon
+          @click.native="isCollapse = !isCollapse"
+          icon-class="collapse"
+          style="color:#fff; cursor: pointer;"
+        />
       </div>
       <el-menu
         ref="menu"
@@ -61,7 +62,23 @@
       </el-menu>
     </aside>
     <div class="right">
-      <header class="header">header</header>
+      <header class="header">
+        <div>2</div>
+        <div>{{ $t('home.title') }}</div>
+        <el-dropdown @command="toggleLang">
+          <span class="el-dropdown-link">
+            {{ $t('header.lang') }}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              :command="item"
+              v-for="item of locales"
+              :class="item == locale ? 'active':''"
+              :key="item"
+            >{{ $t(`header.${item}`) }}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </header>
       <main class="main">
         <Nuxt />
       </main>
@@ -71,18 +88,18 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data() {
+  data () {
     return {
       isCollapse: false,
-      others:[
+      others: [
         {
-          meta:{ 
-            icon:'article',
-            title:"文章管理"
+          meta: {
+            icon: 'article',
+            title: "文章管理"
           },
-          name:'articles',
-          path:'articles',
-          children:[
+          name: 'articles',
+          path: 'articles',
+          children: [
             {
               meta: {
                 icon: "collapse",
@@ -99,17 +116,17 @@ export default {
               name: "write",
               path: "detail"
             },
-            
+
           ]
         },
-         {
-          meta:{ 
-            icon:'tag',
-            title:"标签管理"
+        {
+          meta: {
+            icon: 'tag',
+            title: "标签管理"
           },
-          name:'tags',
-          path:'tags',
-          children:[
+          name: 'tags',
+          path: 'tags',
+          children: [
             {
               meta: {
                 icon: "collapse",
@@ -126,7 +143,7 @@ export default {
               name: "tag-detail",
               path: "detail"
             },
-            
+
           ]
         }
       ],
@@ -169,8 +186,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["routes"]),
-    toggleClass() {
+    ...mapGetters(['routes', 'locales', 'locale']),
+    toggleClass () {
       if (this.isCollapse) {
         return "min";
       } else {
@@ -178,7 +195,16 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    toggleLang (locale) {
+      // console.log(lang === this.locale)
+      // console.log(this.$$store)
+      // if (lang === this.locale) return
+      if (locale == this.locale) return
+      this.$store.commit('SET_LANG', locale)
+      this.$i18n.locale = locale
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -207,7 +233,14 @@ $asideBgColor: #fff;
   .right {
     flex: 1;
     .header {
+      padding: 0 16px;
       height: $headerHeight;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      & div {
+        margin-left: 20px;
+      }
     }
     .main {
       padding: 20px;
@@ -226,9 +259,21 @@ $asideBgColor: #fff;
 ::v-deep .el-menu {
   border-right: none;
 }
+::v-deep li.el-dropdown-menu__item.active {
+  color: #263445 !important;
+  font-size: 18px;
+  font-weight: bold;
+}
+::v-deep li.el-dropdown-menu__item.active::before {
+  content: '>';
+  color: #263445;
+}
 .svg-icon {
   width: 20px;
   height: 20px;
+}
+::v-deep .el-dropdown:foucs {
+  outline: none !important;
 }
 </style>
 <style lang="scss">

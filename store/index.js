@@ -40,13 +40,34 @@ const initialState = {
         }
       ]
     }
-  ]
+  ],
+  locales: ["zh-CN", "en-US"],
+  locale: "zh-CN"
 };
 
 export const state = () => initialState;
 
 export const getters = {
   user: state => state.user,
-  routes: state => state.routes
+  routes: state => state.routes,
+  locales: state => state.locales,
+  locale: state => state.locale,
 };
-
+export const mutations = {
+  SET_USER_INFO(state, { user }) {
+    state.user = user || {};
+  },
+  SET_ROUTES(state, { rotues }) {
+    state.rotues = rotues || [];
+  },
+  SET_LANG(state, locale) {
+    if (state.locales.includes(locale)) {
+      state.locale = locale
+    }
+  }
+};
+export const actions = {
+  async setRotues({ commit }, routes) {
+    commit("SET_ROUTES", routes);
+  }
+};
