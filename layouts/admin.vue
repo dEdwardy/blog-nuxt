@@ -14,10 +14,10 @@
         ></svg-icon>
       </div>
       <div
-        @click="isCollapse = !isCollapse"
-        style="width: 20px; height: 20px; cursor: pointer"
+        
+        style="height: 20px;display:flex;justify-content:flex-end;padding:0 20px"
       >
-        change
+        <svg-icon @click.native="isCollapse = !isCollapse" icon-class="collapse" style="color:#fff; cursor: pointer;"/>
       </div>
       <el-menu
         ref="menu"
@@ -31,7 +31,7 @@
         active-text-color="rgb(24,144,255)"
       >
         <el-submenu
-          v-for="item of routes"
+          v-for="item of [...routes,...others]"
           :key="item.path"
           :index="'admin/' + item.path"
         >
@@ -45,7 +45,7 @@
           <nuxt-link
             v-for="i of item.children"
             :key="i.path"
-            :to="{ name: 'admin-' + item.path + '-' + i.path }"
+            :to="{ path: '/admin/' + item.path + '/' + i.path }"
           >
             <el-menu-item :index="'admin/' + item.path + '/' + i.path">
               <template slot="title">
@@ -74,6 +74,62 @@ export default {
   data() {
     return {
       isCollapse: false,
+      others:[
+        {
+          meta:{ 
+            icon:'article',
+            title:"文章管理"
+          },
+          name:'articles',
+          path:'articles',
+          children:[
+            {
+              meta: {
+                icon: "collapse",
+                title: "文章列表"
+              },
+              name: "list",
+              path: "list"
+            },
+            {
+              meta: {
+                icon: "write-article",
+                title: "写文章"
+              },
+              name: "write",
+              path: "detail"
+            },
+            
+          ]
+        },
+         {
+          meta:{ 
+            icon:'tag',
+            title:"标签管理"
+          },
+          name:'tags',
+          path:'tags',
+          children:[
+            {
+              meta: {
+                icon: "collapse",
+                title: "标签列表"
+              },
+              name: "tag-list",
+              path: "list"
+            },
+            {
+              meta: {
+                icon: "write-article",
+                title: "新建标签"
+              },
+              name: "tag-detail",
+              path: "detail"
+            },
+            
+          ]
+        }
+      ],
       mockRoutes: [
         {
           meta: {

@@ -8,7 +8,7 @@ const initialState = {
   routes: [
     {
       meta: {
-        icon: "system",
+        icon: "settings",
         title: "系统管理"
       },
       name: "system",

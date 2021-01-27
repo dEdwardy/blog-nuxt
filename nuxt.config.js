@@ -1,6 +1,9 @@
 import { resolve } from 'path'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  server:{
+    port:8088
+  },
   head: {
     title: 'blog',
     meta: [
