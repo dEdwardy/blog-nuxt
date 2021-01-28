@@ -44,15 +44,8 @@ const initialState = {
   locales: ["zh-CN", "en-US"],
   locale: "zh-CN"
 };
-
 export const state = () => initialState;
 
-export const getters = {
-  user: state => state.localStorage.user || state.user,
-  routes: state => state.localStorage.routes || state.routes,
-  locales: state =>  state.localStorage.locales || state.locales,
-  locale: state =>  state.locale,
-};
 export const mutations = {
   SET_USER_INFO(state, { user }) {
     state.user = user || {};
@@ -67,7 +60,7 @@ export const mutations = {
   }
 };
 export const actions = {
-  async setRotues({ commit }, routes) {
-    commit("SET_ROUTES", routes);
-  }
-};
+  // async nuxtServerInit({commit},{ req,app }){
+  //   console.warn(app)
+  // }
+}

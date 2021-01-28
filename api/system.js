@@ -1,6 +1,7 @@
-import { GET, POST, PUT, DELETE } from './index.js'
+import { GET, POST, PUT, DELETE } from './service.js'
 //user module
-export const  getUsers = params => GET('system/user',params)
+export const  getUsers = params => GET('users',params)
+//depart接口暂无
 export const  getDepartTree = params => GET('system/depart',params)
 
 //menu module

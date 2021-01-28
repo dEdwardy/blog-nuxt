@@ -16,13 +16,16 @@
     "@nuxtjs/pwa": "^3.0.2",
     "@riophae/vue-treeselect": "^0.4.0",
     "axios": "^0.21.0",
+    "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "eslint": "^7.18.0",
     "g": "^2.0.1",
     "nuxt": "^2.14.6",
+    "nuxt-vuex-localstorage": "^1.2.7",
     "reset.css": "^2.0.2",
-    "vue-i18n": "^8.22.4"
+    "vue-i18n": "^8.22.4",
+    "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",

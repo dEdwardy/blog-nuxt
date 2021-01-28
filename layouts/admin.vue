@@ -73,7 +73,7 @@
             <el-dropdown-item
               :command="item"
               v-for="item of locales"
-              :class="item == locale ? 'active':''"
+              :class="item == $store.state.localStorage.locale ? 'active':''"
               :key="item"
             >{{ $t(`header.${item}`) }}</el-dropdown-item>
           </el-dropdown-menu>
@@ -202,9 +202,17 @@ export default {
       // if (lang === this.locale) return
       if (locale == this.locale) return
       this.$store.commit('SET_LANG', locale)
-      this.$i18n.locale = locale
+      this.$store.commit('localStorage/SET_LANG', locale)
+      this.$i18n.locale = locale;
     }
   },
+  created () {
+    let storage = this.$store.state.localStorage
+    if (storage && storage.locale) {
+      this.$store.commit('SET_LANG', storage.locale)
+      this.$i18n.locale = storage.locale;
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -245,6 +253,7 @@ $asideBgColor: #fff;
     .main {
       padding: 20px;
       height: calc(100% - #{$headerHeight+40px});
+      overflow-y: scroll;
     }
   }
 }
@@ -299,5 +308,27 @@ a {
 
 .router-link-active {
   text-decoration: none;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background-color: #f5f5f5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #c8c8c8;
 }
 </style>

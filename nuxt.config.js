@@ -17,9 +17,13 @@ export default {
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    '@/assets/styles/page-transition.css',
     'element-ui/lib/theme-chalk/index.css',
     'reset.css',
     '@/assets/styles/base.scss',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
   router: {
     middleware: 'i18n'
@@ -29,6 +33,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/svg-icon', //注册 svg-icons插件文件 
     '@/plugins/i18n.js',  //注册国际化语言包插件
+    { src:'@/plugins/nuxt-quill-plugin.js', ssr:false },  //注册vue quill editor ssr
     // '@/plugins/axios',
     // '@/plugins/axios-api'
   ],
@@ -51,7 +56,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-vuex-localstorage',
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content

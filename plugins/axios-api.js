@@ -1,5 +1,5 @@
 // plugins/axios-api-plugin.js
-import createApi from '~/api/index.js'
+import createApi from '~/api/service.js'
 // 这里ctx也可以访问到store
 export default (ctx, inject) => {
   // 注入上下文

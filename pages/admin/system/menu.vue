@@ -1,23 +1,44 @@
 <template>
   <div class="menu-wrapper">
     <div class="search-panel">
-      <el-form :inline="true" :model="form" ref="form" label-width=" ">
+      <el-form
+        :inline="true"
+        :model="form"
+        ref="form"
+        label-width=" "
+      >
         <el-form-item label="菜单名称">
-          <el-input v-model="form.name" style="width: 200px"></el-input>
+          <el-input
+            v-model="form.name"
+            style="width: 200px"
+          ></el-input>
         </el-form-item>
         <el-form-item label="菜单状态">
-          <el-select v-model="form.status" style="width: 200px">
-            <el-option label="正常" value="on"></el-option>
-            <el-option label="停用" value="off"></el-option>
+          <el-select
+            v-model="form.status"
+            style="width: 200px"
+          >
+            <el-option
+              label="正常"
+              value="on"
+            ></el-option>
+            <el-option
+              label="停用"
+              value="off"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="buttons">
-          <el-button type="primary" @click="onReset" icon="el-icon-refresh"
-            >重置</el-button
-          >
-          <el-button type="primary" @click="onSubmit" icon="el-icon-search"
-            >查询</el-button
-          >
+          <el-button
+            type="primary"
+            @click="onReset"
+            icon="el-icon-refresh"
+          >重置</el-button>
+          <el-button
+            type="primary"
+            @click="onSubmit"
+            icon="el-icon-search"
+          >查询</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -26,8 +47,7 @@
         type="primary"
         icon="el-icon-plus"
         @click="handleClick(null, 'add')"
-        >新增</el-button
-      >
+      >新增</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -35,9 +55,20 @@
       row-key="id"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="name" label="菜单名称" sortable> </el-table-column>
-      <el-table-column prop="icon" label="图标" sortable> </el-table-column>
-      <el-table-column prop="sort" label="排序"> </el-table-column>
+      <el-table-column
+        prop="name"
+        label="菜单名称"
+        sortable
+      > </el-table-column>
+      <el-table-column
+        prop="icon"
+        label="图标"
+        sortable
+      > </el-table-column>
+      <el-table-column
+        prop="sort"
+        label="排序"
+      > </el-table-column>
       <el-table-column
         prop="status"
         label="状态"
@@ -48,29 +79,30 @@
         "
       >
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="200">
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="200"
+      >
         <template slot-scope="scope">
           <el-button
             @click.stop="handleClick(scope.row, 'update')"
             type="text"
             size="small"
             icon="el-icon-edit"
-            >修改</el-button
-          >
+          >修改</el-button>
           <el-button
             type="text"
             size="small"
             icon="el-icon-plus"
             @click.stop="handleClick(scope.row, 'add')"
-            >新增</el-button
-          >
+          >新增</el-button>
           <el-button
             type="text"
             size="small"
             icon="el-icon-delete"
             @click.stop="handleClick(scope.row, 'delete')"
-            >删除</el-button
-          >
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,21 +120,30 @@
         ref="menuForm"
         label-width="100px"
       >
-        <el-form-item label="上级菜单" prop="parentId">
+        <el-form-item
+          label="上级菜单"
+          prop="parentId"
+        >
           <treeselect
             v-model="menuForm.parentId"
             @input="validateParent"
             :options="options"
           />
         </el-form-item>
-        <el-form-item label="菜单类型" prop="type">
+        <el-form-item
+          label="菜单类型"
+          prop="type"
+        >
           <el-radio-group v-model="menuForm.type">
             <el-radio :label="0">目录</el-radio>
             <el-radio :label="1">菜单</el-radio>
             <el-radio :label="2">按钮</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="菜单图标" prop="icon">
+        <el-form-item
+          label="菜单图标"
+          prop="icon"
+        >
           <icon-picker
             style="width: 100%"
             v-model="menuForm.icon"
@@ -110,12 +151,18 @@
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="菜单名称" prop="name">
+            <el-form-item
+              label="菜单名称"
+              prop="name"
+            >
               <el-input v-model="menuForm.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="菜单排序" prop="sort">
+            <el-form-item
+              label="菜单排序"
+              prop="sort"
+            >
               <el-input-number
                 style="width: 100%"
                 v-model="menuForm.sort"
@@ -125,7 +172,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否外联" prop="link">
+            <el-form-item
+              label="是否外联"
+              prop="link"
+            >
               <el-radio-group v-model="menuForm.link">
                 <el-radio :label="0">是</el-radio>
                 <el-radio :label="1">否</el-radio>
@@ -133,23 +183,50 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="路由地址" prop="path">
+            <el-form-item
+              label="路由地址"
+              prop="path"
+            >
               <el-input v-model="menuForm.path"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="显示状态" prop="show">
-              <el-select v-model="menuForm.show" style="width: 100%">
-                <el-option label="正常" :value="true"></el-option>
-                <el-option label="停用" :value="false"></el-option>
+            <el-form-item
+              label="显示状态"
+              prop="show"
+            >
+              <el-select
+                v-model="menuForm.show"
+                style="width: 100%"
+              >
+                <el-option
+                  label="正常"
+                  :value="true"
+                ></el-option>
+                <el-option
+                  label="停用"
+                  :value="false"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="菜单状态" prop="status">
-              <el-select v-model="menuForm.status" style="width: 100%">
-                <el-option label="正常" value="on"></el-option>
-                <el-option label="停用" value="off"></el-option>
+            <el-form-item
+              label="菜单状态"
+              prop="status"
+            >
+              <el-select
+                v-model="menuForm.status"
+                style="width: 100%"
+              >
+                <el-option
+                  label="正常"
+                  value="on"
+                ></el-option>
+                <el-option
+                  label="停用"
+                  value="off"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -158,7 +235,10 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogCancel">取 消</el-button>
-          <el-button type="primary" @click="dialogSure">确 定</el-button>
+          <el-button
+            type="primary"
+            @click="dialogSure"
+          >确 定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -177,7 +257,7 @@ export default {
     treeselect,
     iconPicker
   },
-  data() {
+  data () {
     return {
       dialogVisible: false,
       dialogTitle: "",
@@ -269,7 +349,7 @@ export default {
     };
   },
   computed: {
-    menuRules() {
+    menuRules () {
       return {
         parentId: [
           { required: true, message: "请输入活动名称", trigger: "blur" }
@@ -296,13 +376,13 @@ export default {
     }
   },
   methods: {
-    treeForeach(tree, func) {
+    treeForeach (tree, func) {
       tree.forEach(data => {
         func(data);
         data.children && this.treeForeach(data.children, func);
       });
     },
-    getMenuTree() {
+    getMenuTree () {
       return getMenuTree().then(({ data }) => {
         this.tableData = data;
         let b = [{ name: "主类目", id: 0, children: data }]
@@ -311,19 +391,19 @@ export default {
         console.log(b)
       });
     },
-    validateParent() {
+    validateParent () {
       this.$refs.menuForm && this.$refs.menuForm.validateField("parentId");
     },
-    onReset() {
+    onReset () {
       Object.keys(this.form).forEach(i => (this.form[i] = ""));
     },
-    onSubmit() {
+    onSubmit () {
       this.$refs.form.valisort(valid => {
         if (valid) {
         }
       });
     },
-    handleClick(row, type) {
+    handleClick (row, type) {
       if (row) {
         this.menuForm.parentId = row.id;
       }
@@ -343,10 +423,10 @@ export default {
           break;
       }
     },
-    handleClose() {
+    handleClose () {
       this.dialogVisible = false;
     },
-    dialogSure() {
+    dialogSure () {
       console.log(this.menuForm);
       if (this.dialogTitle == "修改菜单") {
         //修改菜单
@@ -366,11 +446,11 @@ export default {
       //后续加了验证  使用form 的 clearFields()方法
       // Object.keys(this.menuForm).forEach( i => this.menuForm[i] = '')
     },
-    dialogCancel() {
+    dialogCancel () {
       console.log(this.menuForm);
       this.dialogVisible = false;
     },
-    resetDialogForm() {
+    resetDialogForm () {
       this.$nextTick(() => {
         //后续加了验证  使用form 的 clearFields()方法
         this.$refs.menuForm && this.$refs.menuForm.resetFields();
@@ -378,7 +458,7 @@ export default {
       });
     }
   },
-  mounted() {
+  mounted () {
     this.getMenuTree();
   }
 };
