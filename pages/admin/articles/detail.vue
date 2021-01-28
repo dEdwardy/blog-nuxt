@@ -13,11 +13,12 @@
       </div>
       <!-- <el-button @click="preview">预览</el-button> -->
       <div>
+      <el-button @click="save">保存</el-button>
       <el-button @click="submit">发布</el-button>
       </div>
     </div>
     <el-row class="editor">
-      <el-col :span="showPreview ? 12 :24">
+      <el-col class="left" :span="showPreview ? 12 :24">
         <div
           class="quill-editor"
           :content="content"
@@ -30,10 +31,11 @@
         </div>
       </el-col>
       <el-col
+        class="right"
         v-show="showPreview"
         :span="12"
       >
-        <div class="ql-container preview ql-snow">
+        <div class="ql-container ql-snow preview">
           <div
             class="ql-editor"
             v-html="content"
@@ -54,7 +56,7 @@ export default {
       content: '',
       showPreview: false,
       editorOption: {
-
+        placeholder:'请输入'
       },
     }
   },
@@ -64,6 +66,9 @@ export default {
     },
     preview () {
       this.showPreview = !this.showPreview
+    },
+    save () {
+      if(!this.content)return;
     },
     submit () {
       if(!this.content)return;
@@ -102,15 +107,24 @@ export default {
     }
   }
   .editor {
+      overflow: hidden;
+    width: 100%;
     transition: all 2s;
     .quill-editor {
       width: 100%;
-      min-height: 410px;
-      // flex: 1;
+      flex: 1;
+      overflow: hidden;
     }
     .preview {
-      min-height: 500px;
+      height: 100%;
+      flex:1;
+      overflow: hidden;
     }
   }
+}
+.left,.right{
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 </style>

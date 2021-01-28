@@ -16,5 +16,16 @@
     "lang":"Languages",
     "zh-CN":"简体中文",
     "en-US":"English"
+  },
+  "system":{
+    "operation":{
+      "success":"Operating success",
+      "fail":"Operating fail"
+    },
+    "button":{
+      "new":"New",
+      "update":"Update",
+      "delete":"Delete"
+    }
   }
 }

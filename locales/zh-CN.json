@@ -17,5 +17,17 @@
     "lang":"选择语言",
     "zh-CN":"简体中文",
     "en-US":"English"
+  },
+  "system":{
+    "operation":{
+      "success":"操作成功",
+      "fail":"操作失败",
+      "cancel":"操作已取消"
+    },
+    "button":{
+      "new":"新建",
+      "update":"修改",
+      "delete":"删除"
+    }
   }
 }

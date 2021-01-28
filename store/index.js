@@ -3,7 +3,8 @@ const initialState = {
     username: "Edw4rd",
     password: "123456",
     sex: "male",
-    phone: "18183033451"
+    phone: "18183033451",
+    token:''
   },
   routes: [
     {
@@ -49,6 +50,7 @@ export const state = () => initialState;
 
 export const getters = {
   user: state => state.localStorage.user || state.user,
+  token: state => state.localStorage.token || state.token,
   routes: state => state.localStorage.routes || state.routes,
   locales: state =>  state.localStorage.locales || state.locales,
   locale: state =>  state.locale,

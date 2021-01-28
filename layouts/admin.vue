@@ -79,7 +79,7 @@
           </el-dropdown-menu>
         </el-dropdown>
       </header>
-      <main class="main">
+      <main :class="isCollapse ? 'main collapse' : 'main'">
         <Nuxt />
       </main>
     </div>
@@ -240,6 +240,7 @@ $asideBgColor: #fff;
   }
   .right {
     flex: 1;
+    width: 100%;
     .header {
       padding: 0 16px;
       height: $headerHeight;
@@ -253,7 +254,11 @@ $asideBgColor: #fff;
     .main {
       padding: 20px;
       height: calc(100% - #{$headerHeight+40px});
+      width: calc(100vw - 200px - 40px);
       overflow-y: scroll;
+      &.collapse{
+        width: calc(100vw - 60px - 40px);
+      }
     }
   }
 }
@@ -311,24 +316,9 @@ a {
 }
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 0;
+  height: 0;
   background-color: #f5f5f5;
-}
 
-/*定义滚动条轨道 内阴影+圆角*/
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background-color: #f5f5f5;
-}
-
-/*定义滑块 内阴影+圆角*/
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #c8c8c8;
 }
 </style>

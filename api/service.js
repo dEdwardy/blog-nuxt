@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Message } from 'element-ui'
 // 高阶函数  method 1 
 // export default axios => () => ({
 //   users(params) {
@@ -27,13 +28,18 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data; //res is my own data
-    console.log(res);
-    return res
-    // if (res.code === 200) {
-    //   return res;
-    // } else {
-    //   return Promise.reject(new Error(res.msg || "Error"));
-    // }
+    // console.log(res);
+    // return res
+    console.log(res)
+    if (res.status === 200) {
+      return res;
+    } else {
+      Message({
+        type:'error',
+        message:res.data.message.error
+      })
+      return Promise.reject(new Error(res.data.message.error|| "Error"));
+    }
   },
   error => {
     console.log("err" + error); // for debug
